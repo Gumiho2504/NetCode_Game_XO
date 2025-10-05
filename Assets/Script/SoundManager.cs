@@ -18,21 +18,21 @@ public class SoundManager : MonoBehaviour
     {
         if (e.playerType == GameManager.Instance.GetLocalPlayerType())
         {
-            Instantiate(winSfxPre, transform.position, Quaternion.identity);
-            Destroy(winSfxPre, 2f);
+            GameObject winSfx = Instantiate(winSfxPre, transform.position, Quaternion.identity).gameObject;
+            Destroy(winSfx);
         }
         else
         {
-            Instantiate(loseSfxPre, transform.position, Quaternion.identity);
-            Destroy(loseSfxPre, 2f);
+            GameObject loseSfx = Instantiate(loseSfxPre, transform.position, Quaternion.identity).gameObject;
+            Destroy(loseSfx);
         }
 
     }
 
     private void OnPlacedObject(object sender, EventArgs e)
     {
-        Instantiate(placeSfxPre, transform.position, Quaternion.identity);
-        Destroy(placeSfxPre, 2f);
+        GameObject placeSfx = Instantiate(placeSfxPre, transform.position, Quaternion.identity).gameObject;
+        Destroy(placeSfx);
     }
 
     // Update is called once per frame

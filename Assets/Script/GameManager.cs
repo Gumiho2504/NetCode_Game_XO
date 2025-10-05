@@ -136,6 +136,8 @@ public class GameManager : NetworkBehaviour
         };
     }
 
+
+
     public override void OnNetworkSpawn()
     {
         Debug.Log("OnNetworkSpawn = " + NetworkManager.Singleton.LocalClientId.ToString());
@@ -165,6 +167,8 @@ public class GameManager : NetworkBehaviour
             OnScoreChanged?.Invoke(this, EventArgs.Empty);
         };
     }
+
+
 
     private void NetworkManager_OnClientConnectedCallback(ulong obj)
     {
@@ -200,16 +204,11 @@ public class GameManager : NetworkBehaviour
         // Debug.Log($"ClickOnGridPosition {x}, {y}");
         TriggerOnPlacedObjectRpc();
         OnClickedOnGridPosition.Invoke(this, new OnClickedOnGridPositionEventArgs { x = x, y = y, playerType = playerType });
-        switch (playerType)
+        currentPlayablePlayerType.Value = playerType switch
         {
-            default:
-            case PlayerType.Cross:
-                currentPlayablePlayerType.Value = PlayerType.Circle;
-                break;
-            case PlayerType.Circle:
-                currentPlayablePlayerType.Value = PlayerType.Cross;
-                break;
-        }
+            PlayerType.Circle => PlayerType.Cross,
+            _ => PlayerType.Circle,
+        };
 
         // TriggerOnCurrentPlayablePlayerChangedRpc();
 
